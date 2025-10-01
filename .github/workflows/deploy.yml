@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -26,3 +26,8 @@ jobs:
           file: ./deploy/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/wise-cow:latest
+      
+      - name: Update Kubernetes Deployment
+        run: |
+            kubectl -n wisecow set image deployment/wisecow wisecow=saddocker419/wise-cow:latest --record
+            kubectl -n wisecow rollout status deployment/wisecow
