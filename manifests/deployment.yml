@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: wisecow
-          image: wise-cow:latest
+          image: saddocker419/wise-cow:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 4499
